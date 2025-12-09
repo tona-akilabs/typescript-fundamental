@@ -6,7 +6,8 @@
     "dev:fun": "npx ts-node src/fundamentals/fun/main.ts",
     "prod:fun": "node dist/fundamentals/fun/main.js",
     "prod:obj": "node dist/fundamentals/objects/main.js",
-    "prod:str": "node dist/fundamentals/strings/main.js"
+    "prod:str": "node dist/fundamentals/strings/main.js",
+    "prod:promise": "node dist/fundamentals/promises/main.js"
   },
   "engines": {
     "node": ">=14"
