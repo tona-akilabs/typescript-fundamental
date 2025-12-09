@@ -4,7 +4,8 @@
     "build": "npx tsc",
     "build:watch": "npx tsc --watch",
     "dev:fun": "npx ts-node src/fundamentals/fun/main.ts",
-    "prod:fun": "node dist/fundamentals/fun/main.js"
+    "prod:fun": "node dist/fundamentals/fun/main.js",
+    "prod:ex": "node dist/examples/main.js"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
