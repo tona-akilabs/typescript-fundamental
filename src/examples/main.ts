@@ -1,61 +1,38 @@
-//1. Rest/Spread Properties for Objects
-//  You can now use rest (...rest) and spread (...obj) with objects, not only arrays.
+//1. Array.prototype.flat()
+//  Flattens nested arrays.
 
-const user = { name: "Tona", age: 20, country: "Cambodia" };
+console.log([1, [2, [3]]].flat());      // [1, 2, [3]]
+console.log([1, [2, [3]]].flat(2));     // [1, 2, 3]
 
-const { ...rest } = user;
-console.log(rest.name); // "Tona"
-console.log(rest); // { age: 20, country: "Cambodia" }
+//2. Array.prototype.flatMap()
+// Maps each element, then flattens one level.
+console.log([1, 2, 3].flatMap(x => [x, x * 2])); // // [1, 2, 2, 4, 3, 6]
 
-const newUser = { ...user, city: "Phnom Penh" };
-console.log(newUser);
+//3. Object.fromEntries()
+// Converts key–value pairs into an object (reverse of Object.entries()).
+console.log(Object.fromEntries([['a', 1], ['b', 2]]));
 
-//2. Asynchronous Iteration (for await...of)
-   // Allows you to loop through async data sources.
-import {fetchAsyncItems} from "./help";
-async function run() {
-    for await (const item of await fetchAsyncItems()) {
-        const result = await item.json();
-        console.log(result);
-    }
-}
-// run()
+//4. String trimming: trimStart() and trimEnd()
+// (Also available as aliases trimLeft() and trimRight()).
+console.log("   hi".trimStart()); // "hi"
+console.log("hi   ".trimEnd()); // "hi"
 
-//3. Promise.prototype.finally()
-     // Runs regardless of success or failure.
-fetch("https://jsonplaceholder.typicode.com/posts/1")
-.then(res => res.json())
-.then(data => console.log(data))
-.catch(err => console.log(err))
-.finally(() => console.log("Done!"));
-
-//4. New Regular Expression Features
-     // a) RegExp Named Capture Groups
-     // Give names to regex groups.
-const regex = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
-const result = regex.exec("2025-12-09");
-
-if (result) {
-    if (result.groups) {
-        console.log(result.groups); //  { year: '2025', month: '12', day: '09' }
-        console.log(result.groups.year); // 2025
-        console.log(result.groups.month); // 12
-        console.log(result.groups.day); // 09
-    }
+//5. Optional catch binding
+//No need to write catch (e) if you don't use the error.
+try {
+    throw new Error("Oops");
+} catch {
+    console.log("Error happened!");
 }
 
-    // b) RegExp Unicode Property Escapes \p{...}
-      // Now regex can match based on Unicode categories.
-   console.log(/\p{Emoji}/u.test("😄")) // true
+//6. Symbol.prototype.description
+//Access the description string of a Symbol.
+const s = Symbol("my symbol");
+console.log(s.description); // "my symbol"
 
+//7. Well-defined JSON Stringify behavior
+//ES2019 fixed edge cases for:
 
-    // c) RegExp Lookbehind Assertions
-      // Positive lookbehind:
-   const lookbehind = /(?<=\$)\d+/.exec("$150")
-   console.log(lookbehind) // [ '150', index: 1, input: '$150', groups: undefined ]
-   console.log(lookbehind?.[0]) // 150
-
-    // d) RegExp DotAll Mode (s flag)
-      // . now matches newlines.
-    const text = "Hello\nWorld";
-    console.log(/Hello.World/s.test(text)); // true
+//8. Revised Function toString()
+function test() { /* comment */ }
+console.log(test.toString());
