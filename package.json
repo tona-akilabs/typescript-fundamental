@@ -4,7 +4,12 @@
     "build": "npx tsc",
     "build:watch": "npx tsc --watch",
     "dev:fun": "npx ts-node src/fundamentals/fun/main.ts",
-    "prod:fun": "node dist/fundamentals/fun/main.js"
+    "prod:fun": "node dist/fundamentals/fun/main.js",
+    "prod:obj": "node dist/fundamentals/objects/main.js",
+    "prod:str": "node dist/fundamentals/strings/main.js"
+  },
+  "engines": {
+    "node": ">=14"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
