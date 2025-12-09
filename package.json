@@ -1,0 +1,13 @@
+{
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
+    "dev:fun": "npx ts-node src/fundamentals/fun/main.ts",
+    "prod:fun": "node dist/fundamentals/fun/main.js"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
