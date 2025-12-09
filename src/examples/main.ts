@@ -1,55 +1,56 @@
-//1. BigInt
-//A new primitive type for integers larger than Number.MAX_SAFE_INTEGER.
-const big = 123456789012345678901234567890n;
-console.log(big + 2n); // 123456789012345678901234567892n
 
+//1. String.prototype.replaceAll
+//Allows replacing all occurrences of a substring without using regex.
+const result = "hello world world".replaceAll("world", "Tona");
+console.log(result); // // "hello Tona Tona"
 
-//2. Dynamic import()
-//Allows importing modules asynchronously and on demand.
-import("./utils").then(module => {
-    module.sayHello();
+//2. Logical Assignment Operators
+//These combine logical operators (&&, ||, ??) with assignment.
+//a. ||= (Logical OR assignment)
+//Assigns if the variable is falsy.
+let a = 0;
+a ||= 5;
+console.log(a); // a = 5
+
+//b. &&= (Logical AND assignment)
+//Assigns if the variable is truthy.
+let b = 10;
+b &&= 20;
+console.log(b); // b = 20
+
+//c. ??= (Nullish coalescing assignment)
+//Assigns only if the variable is null or undefined.
+let c = null;
+c ??= 50;
+console.log(c); // c = 50
+
+//3. Numeric Separators (_)
+//Improves readability of long numbers.
+let num = 1_000_000;
+let hex = 0xFF_FF;
+let binary = 0b1010_0101;
+console.log(num);
+console.log(hex);
+console.log(binary);
+
+//4. Promise.any()
+//Resolves as soon as any one promise fulfills (opposite of Promise.race() when promises reject).
+
+Promise.any([
+    Promise.reject("err"),
+    Promise.resolve("success"),
+]).then(console.log); // "success"
+
+//5. WeakRef
+//Allows holding a weak reference to an object (does NOT prevent garbage collection).
+let obj = { name: "Tona" };
+let weak = new WeakRef(obj);
+
+console.log(weak.deref()); // { name: "Tona" }
+
+//6. FinalizationRegistry
+//Lets you run cleanup code after an object is garbage collected.
+const registry = new FinalizationRegistry((value) => {
+    console.log(value, "was cleaned up");
 });
-
-//3. Nullish Coalescing Operator ??
-//Returns the right-hand value only if the left-hand value is null or undefined.
-let user = null;
-console.log(user ?? "Guest"); // "Guest"
-
-//4. Optional Chaining Operator ?.
-//Safely access nested properties without errors.
-const user2 = {};
-//console.log(user2.address?.street); // undefined (no error)
-
-//5. Promise.allSettled()
-//Resolves when all promises finish, regardless of success or failure.
-Promise.allSettled([
-    Promise.resolve(10),
-    Promise.reject("Error")
-]).then(result => console.log(result));
-
-
-//6. globalThis
-//A universal global object across environments.
-//Browser → window
-//Node.js → global
-//Web Workers → self
-//Use globalThis instead:
-const key = "something";
-// @ts-ignore
-//globalThis.appGlobal ??= {};      // ensure it's initialized
-// @ts-ignore
-//globalThis.appGlobal[key] = 123;
-// @ts-ignore
-//console.log(globalThis.appGlobal[key]);
-
-//7. for-in Mechanics Standardized
-//Clarified property enumeration order (not new syntax, but standardized behavior).
-
-//8. String.prototype.matchAll()
-//Returns an iterator of all regex matches.
-const text = "hello1 hello2";
-const regex = /hello(\d)/g;
-
-for (const match of text.matchAll(regex)) {
-    console.log(match[0], match[1]);
-}
+registry.register({}, "MyObject");
